@@ -3,30 +3,33 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Text Username_field;
+    public Text BestScoreText;
+    //public string t1;
+    //public GameObject button1;
+    //public string textValue;
 
-    // Update is called once per frame
-    void Update()
+    /*
+    public void ReadName(string s)
     {
-        
+        t1 = button1.GetComponent<Text>().text;
+        Debug.Log(t1);
     }
+    */
 
     public void StartNew()
     {
+        //Manager.Instance.PlayerName = Username_field.text.ToString();
         SceneManager.LoadScene(1);
     }
 
     public void Exit()
     {
-        //MainManager.Instance.SaveColor();
-
+        Manager.Instance.SaveDetails(Username_field.text.ToString());
 
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
@@ -35,16 +38,18 @@ public class UIHandler : MonoBehaviour
 #endif
     }
 
-    /*
-    public void SaveColorClicked()
+    
+    public void SaveOnStart()
     {
-        MainManager.Instance.SaveColor();
+        Manager.Instance.SaveDetails(Username_field.text.ToString());
     }
+    
 
-    public void LoadColorClicked()
+    /*
+    public void LoadOnStart()
     {
-        MainManager.Instance.LoadColor();
-        ColorPicker.SelectColor(MainManager.Instance.TeamColor);
+        //MainManager.Instance.LoadDetails();
+        //ColorPicker.SelectColor(MainManager.Instance.TeamColor);
     }
     */
 }

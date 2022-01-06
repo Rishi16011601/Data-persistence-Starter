@@ -1,16 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainManager : MonoBehaviour
 {
+    Manager man;
+
+    public static MainManager Instance;
+
     public Brick BrickPrefab;
     public int LineCount = 6;
     public Rigidbody Ball;
 
     public Text ScoreText;
+    public Text BestScoreText;
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -18,10 +24,44 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
+    public string PlayerName;
+    public int PlayerScore;
+    public string BestPlayer;
+    public int BestScore;
+
     
+    private void Awake()
+    {
+        //Manager.Instance.LoadDetails();
+        PlayerName = Manager.Instance.PlayerName;
+        PlayerScore = 0;
+        BestPlayer = Manager.Instance.BestPlayer;
+        //BestPlayer = "hello";
+        BestScore = Manager.Instance.BestScore;
+        //BestScore = 5;
+        BestDisplay();
+        Debug.Log(PlayerName);
+    }
+    
+
+    /*
+    public void PrintDetails()
+    {
+        Debug.Log(PlayerName);
+        Debug.Log(PlayerScore);
+        Debug.Log(BestPlayer);
+        Debug.Log(BestScore);
+
+    }
+    */
+    
+
     // Start is called before the first frame update
     void Start()
     {
+        //MakeChanges();
+
+        //PrintDetails();
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -36,10 +76,21 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+        
+    }
+
+    private void MakeChanges()
+    {
+        //PlayerName = man.PlayerName;
+        //PlayerScore = man.PlayerScore;
+        //BestPlayer = man.BestPlayer;
+        //BestScore = man.BestScore;
     }
 
     private void Update()
     {
+        //MakeChanges();
+
         if (!m_Started)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -57,6 +108,7 @@ public class MainManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                Destroy(gameObject);
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
@@ -64,13 +116,35 @@ public class MainManager : MonoBehaviour
 
     void AddPoint(int point)
     {
+        //PrintDetails();
         m_Points += point;
         ScoreText.text = $"Score : {m_Points}";
     }
 
+    public void BestDisplay()
+    {
+        BestScoreText.text = $"Best Score : {BestPlayer} : {BestScore}";
+    }
+
     public void GameOver()
     {
+        if(m_Points > BestScore)
+        {
+            Manager.Instance.BestPlayer = PlayerName;
+            Manager.Instance.BestScore = m_Points;
+        }
         m_GameOver = true;
         GameOverText.SetActive(true);
+        //man.SaveDetails(PlayerName);
+        //MakeChanges();
+        Manager.Instance.SaveDetails(PlayerName);
+        BestDisplay();
     }
+
+    
+
+    
+    
+    
+
 }
