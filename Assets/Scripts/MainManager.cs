@@ -79,12 +79,9 @@ public class MainManager : MonoBehaviour
         
     }
 
-    private void MakeChanges()
+    public void BackToMenu()
     {
-        //PlayerName = man.PlayerName;
-        //PlayerScore = man.PlayerScore;
-        //BestPlayer = man.BestPlayer;
-        //BestScore = man.BestScore;
+        SceneManager.LoadScene(0);
     }
 
     private void Update()

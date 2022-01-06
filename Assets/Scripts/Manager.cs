@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
     public static Manager Instance;
+
+    public TextMeshProUGUI TextPro;
 
     public string PlayerName;
     public int PlayerScore = 0;
@@ -24,11 +27,14 @@ public class Manager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         LoadDetails();
+        BDisplay();
         //BestDisplay();
     }
 
-
-
+    public void BDisplay()
+    {
+        TextPro.text = $"Best Score : {BestPlayer} : {BestScore}";
+    }
 
     [System.Serializable]
     class SaveData

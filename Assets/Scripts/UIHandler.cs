@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,7 +9,9 @@ using UnityEngine.UI;
 public class UIHandler : MonoBehaviour
 {
     public Text Username_field;
-    public Text BestScoreText;
+
+    
+
     //public string t1;
     //public GameObject button1;
     //public string textValue;
