@@ -19,6 +19,8 @@ public class Manager : MonoBehaviour
     {
         if (Instance != null)
         {
+            LoadDetails();
+            BDisplay();
             Destroy(gameObject);
             return;
         }
